@@ -8,17 +8,16 @@ pipeline {
     stages {
         stage('Requirements') {
             steps {
-                // this step is required to make sure the script
-                // can be executed directly in a shell
-                sh('chmod +x ./algorithm.sh')
+                // Using Git Bash to make the script executable
+                bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "chmod +x $WORKSPACE/algorithm.sh"'
             }
         }
         stage('Build') {
             steps {
-                // the algorithm script creates a file named report.txt
-                sh('./algorithm.sh')
+                // Using Git Bash to execute the script
+                bat '"C:\\Program Files\\Git\\bin\\bash.exe" -c "$WORKSPACE/algorithm.sh"'
 
-                // this step archives the report
+                // Archiving the report
                 archiveArtifacts allowEmptyArchive: true,
                     artifacts: '*.txt',
                     fingerprint: true,
